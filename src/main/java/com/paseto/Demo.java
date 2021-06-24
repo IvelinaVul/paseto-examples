@@ -10,14 +10,23 @@ import java.security.KeyPair;
 
 public class Demo {
 
-    private void usePublicToken() {
+    public void createAndUsePublicTokenTwice() {
         KeyPair keyPair = Keys.keyPairFor(Version.V1);
-        String publicToken = Token.createPublic(keyPair.getPrivate());
+        String publicToken = createPublicToken(keyPair);
+        usePublicToken(publicToken, keyPair);
+        usePublicToken(publicToken, keyPair);
+    }
+
+    private String createPublicToken(KeyPair keyPair) {
+        return Token.createPublic(keyPair.getPrivate());
+    }
+
+    private void usePublicToken(String publicToken, KeyPair keyPair) {
         Paseto paseto = Parser.parsePublicToken(publicToken, keyPair.getPublic());
         displayToken(publicToken, paseto);
     }
 
-    private void useLocalToken() {
+    private void createAndUseLocalToken() {
         SecretKey secretKey = Keys.secretKey();
         String localToken = Token.createLocal(secretKey);
         Paseto paseto = Parser.parseLocalToken(localToken, secretKey);
@@ -41,13 +50,13 @@ public class Demo {
         System.out.println(claims.get("isAdmin"));
         System.out.println("Footer:");
         System.out.println(paseto.getFooter().value());
+        System.out.println(claims.getExpiration());
     }
 
     public static void main(String[] args) {
         Demo demo = new Demo();
-        demo.useLocalToken();
-        demo.usePublicToken();
-        demo.usePublicToken();
+        demo.createAndUseLocalToken();
+        demo.createAndUsePublicTokenTwice();
     }
 
 }
