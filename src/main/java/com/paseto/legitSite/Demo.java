@@ -1,4 +1,4 @@
-package com.paseto;
+package com.paseto.legitSite;
 
 import dev.paseto.jpaseto.Claims;
 import dev.paseto.jpaseto.Paseto;
@@ -7,7 +7,9 @@ import dev.paseto.jpaseto.lang.Keys;
 
 import javax.crypto.SecretKey;
 import java.security.KeyPair;
-
+/**
+ * Demo how the tokens work
+ * */
 public class Demo {
 
     public void createAndUsePublicTokenTwice() {

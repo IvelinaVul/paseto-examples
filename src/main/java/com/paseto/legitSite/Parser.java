@@ -1,4 +1,4 @@
-package com.paseto;
+package com.paseto.legitSite;
 
 import dev.paseto.jpaseto.Paseto;
 import dev.paseto.jpaseto.Pasetos;
